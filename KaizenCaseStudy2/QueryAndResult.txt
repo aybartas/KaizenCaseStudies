@@ -1,0 +1,44 @@
+
+-- INGIZLICE 
+declare @languageCode varchar(2);
+Set @languageCode = 'en';
+
+select co.ContentName as Name, ct.Title, ct.Description as Detail, imgt.ImageUrlContent as ImageUrl, catts.CategoryName  as Category
+from Content as co, ContentTranslations as ct , ImageUrl as img , ImageUrlTranslations as imgt , Category as cat, CategoryTranslations as catts
+where  co.ContentName = ct.ContentName
+and img.ImageUrlId = imgt.ImageUrlId
+and co.ContentName = img.ContentName
+and cat.Id = catts.CategoryId
+and ct.LanguageCode = @languageCode and imgt.LanguageCode = @languageCode
+and catts.LanguageCode = @languageCode
+
+
+
+Name	Title	Detail	ImageUrl	Category
+News1	en-News1-Title	en-News1-Detail	en-News1-ImgUrl2	Economy
+News1	en-News1-Title	en-News1-Detail	en-News1-ImgUrl2	Education
+News2	en-News2-Title	en-News2-Detail	en-News2-ImgUrl2	Economy
+News2	en-News2-Title	en-News2-Detail	en-News2-ImgUrl2	Education
+
+
+
+-- TURKÇE
+
+declare @languageCode varchar(2);
+Set @languageCode = 'tr';
+
+select co.ContentName as Name, ct.Title, ct.Description as Detail, imgt.ImageUrlContent as ImageUrl, catts.CategoryName  as Category
+from Content as co, ContentTranslations as ct , ImageUrl as img , ImageUrlTranslations as imgt , Category as cat, CategoryTranslations as catts
+where  co.ContentName = ct.ContentName
+and img.ImageUrlId = imgt.ImageUrlId
+and co.ContentName = img.ContentName
+and cat.Id = catts.CategoryId
+and ct.LanguageCode = @languageCode and imgt.LanguageCode = @languageCode
+and catts.LanguageCode = @languageCode
+
+Name	Title	Detail	ImageUrl	Category
+News1	tr-News1-Başlık	tr-News1-Detay	tr-News1-ImgUrl1	Ekonomi
+News1	tr-News1-Başlık	tr-News1-Detay	tr-News1-ImgUrl1	Eğitim
+News2	tr-News2-Başlık	tr-News2-Detay	tr-News2-ImgUrl1	Ekonomi
+News2	tr-News2-Başlık	tr-News2-Detay	tr-News2-ImgUrl1	Eğitim
+

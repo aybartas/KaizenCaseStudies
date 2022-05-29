@@ -1,0 +1,90 @@
+CREATE DATABASE KaizenCaseStudy2
+
+-- CREATE TABLES
+CREATE TABLE Category(
+   Id   INT              NOT NULL,    
+   PRIMARY KEY (Id)
+);
+
+CREATE TABLE CategoryTranslations(
+   CategoryId   INT   NOT NULL,    
+   CategoryName nvarchar(50) NOT NULL,
+   LanguageCode nvarchar(2) NOT NULL,
+   FOREIGN KEY (CategoryId) REFERENCES Category(Id),
+   PRIMARY KEY (CategoryId,LanguageCode)
+);
+
+CREATE TABLE Content(
+   ContentName   nvarchar(50)   NOT NULL, 
+   CategoryId INT NOT NULL,
+   FOREIGN KEY (CategoryId) REFERENCES Category(Id),
+   PRIMARY KEY (ContentName)
+);
+
+CREATE TABLE ContentTranslations(
+   ContentName   nvarchar(50)   NOT NULL,  
+   LanguageCode nvarchar(2) NOT NULL,
+   Description nvarchar(max),
+   Title nvarchar(50),
+   FOREIGN KEY (ContentName) REFERENCES Content(ContentName),
+   PRIMARY KEY (ContentName,LanguageCode)
+);
+
+
+CREATE TABLE ImageUrl(
+   ImageUrlId INT NOT NULL,
+   ContentName   nvarchar(50)   NOT NULL,  
+   FOREIGN KEY (ContentName) REFERENCES Content(ContentName),
+   PRIMARY KEY (ImageUrlId)
+);
+
+CREATE TABLE ImageUrlTranslations(
+   ImageUrlId INT NOT NULL,
+   LanguageCode nvarchar(2) NOT NULL,
+   ImageUrlContent nvarchar(200)
+   FOREIGN KEY (ImageUrlId) REFERENCES ImageUrl(ImageUrlId),
+   PRIMARY KEY (LanguageCode,ImageUrlId)
+);
+
+
+-- SEED TABLES
+
+-- Category
+INSERT INTO Category VALUES(1);
+INSERT INTO Category VALUES(2);
+
+-- CategoryTranslations
+
+INSERT INTO CategoryTranslations VALUES(1,'Ekonomi','tr');
+INSERT INTO CategoryTranslations VALUES(1,'Economy','en');
+INSERT INTO CategoryTranslations VALUES(2,'Eğitim','tr');
+INSERT INTO CategoryTranslations VALUES(2,'Education','en');
+
+-- Content
+INSERT INTO Content VALUES('News1',1);
+INSERT INTO Content VALUES('News2',2);
+
+-- ContentTranslations
+
+INSERT INTO ContentTranslations VALUES('News1','tr','tr-News1-Detay','tr-News1-Başlık');
+INSERT INTO ContentTranslations VALUES('News1','en','en-News1-Detail','en-News1-Title');
+
+INSERT INTO ContentTranslations VALUES('News2','tr','tr-News2-Detay','tr-News2-Başlık');
+INSERT INTO ContentTranslations VALUES('News2','en','en-News2-Detail','en-News2-Title');
+
+-- ImageUrl
+INSERT INTO ImageUrl VALUES(1,'News1');
+INSERT INTO ImageUrl VALUES(2,'News1');
+
+INSERT INTO ImageUrl VALUES(3,'News2');
+INSERT INTO ImageUrl VALUES(4,'News2');
+
+-- ImageUrlTranslations
+INSERT INTO ImageUrlTranslations VALUES(1,'tr','tr-News1-ImgUrl1' );
+INSERT INTO ImageUrlTranslations VALUES(2,'en','en-News1-ImgUrl2' );
+
+INSERT INTO ImageUrlTranslations VALUES(3,'tr','tr-News2-ImgUrl1' );
+INSERT INTO ImageUrlTranslations VALUES(4,'en','en-News2-ImgUrl2' );
+
+
+
